@@ -53,7 +53,7 @@ $botman->hears('search topic {query}', function ($bot, $query) {
 });
 
 $botman->hears('help', function ($bot) {
-    $bot->reply('The List of available commands are : ' . '[' . 'Click Me for Examples' . ']' . '(' . 'https://github.com/anilkumarbp/botman-getsatisfaction' . ')' . PHP_EOL . '*' . ' ' . 'search topic (query) - returns a list of matching topics.' . PHP_EOL . '*' . ' ' . 'search topic (query) (filter) - returns a list of matching topics based on the filters');
+    $bot->reply('The List of available commands are : ' . '[' . 'Click Me for Examples' . ']' . '(' . 'https://github.com/anilkumarbp/botman-getsatisfaction#example-usage' . ')' . PHP_EOL . '*' . ' ' . 'search topic (query) - returns a list of matching topics.' . PHP_EOL . '*' . ' ' . 'search topic (query) (filter) - returns a list of matching topics based on the filters');
 });
 
 // Start listening
