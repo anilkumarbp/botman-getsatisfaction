@@ -27,6 +27,22 @@ $config = [
 $cacheDir = __DIR__ . DIRECTORY_SEPARATOR . '_subscribe';
 if (!file_exists($cacheDir)) {
 
+    if (!function_exists('getallheaders'))
+    {
+        function getallheaders()
+        {
+            $headers = array ();
+            foreach ($_SERVER as $name => $value)
+            {
+                if (substr($name, 0, 5) == 'HTTP_')
+                {
+                    $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                }
+            }
+            return $headers;
+        }
+    }
+
     print 'The Subscribe file is created :' . PHP_EOL;
 
     mkdir($cacheDir);
@@ -35,9 +51,13 @@ if (!file_exists($cacheDir)) {
     if ($request->headers->has('Validation-Token'))
     {
 
-        return Response::create('',200,array('Validation-Token' => getallheaders()['Validation-Token']))->send();
+        $headers = getallheaders();
+        return Response::create('',200,array('Validation-Token' => $headers['Validation-Token']))->send();
     }
 }
+
+
+
 
 // Load the Driver into Botman
 DriverManager::loadDriver(GlipBotman::class);
