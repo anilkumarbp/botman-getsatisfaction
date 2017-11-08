@@ -14,7 +14,7 @@ $dotenv->load();
 try {
 
     // Create SDK instance
-    $rcsdk = new SDK($_ENV['GLIP_APPKEY'], $_ENV['GLIP_APPSECRET'] , $_ENV['GLIP_SERVER'], 'Demo', '1.0.0');
+    $rcsdk = new SDK($_ENV['GLIP_CLIENT_ID'], $_ENV['GLIP_CLIENT_SECRET'] , $_ENV['GLIP_SERVER'], 'Demo', '1.0.0');
 
     // Create Platform instance
     $platform = $rcsdk->platform();

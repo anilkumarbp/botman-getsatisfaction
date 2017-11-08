@@ -167,7 +167,7 @@ class GlipBotman extends Driver
     public function getPlatform()
     {
 
-        $rcsdk = new SDK($this->config->get('GLIP_APPKEY'), $this->config->get('GLIP_APPSECRET'), $this->config->get('GLIP_SERVER'), 'Sample-Bot', '1.0.0');
+        $rcsdk = new SDK($this->config->get('GLIP_CLIENT_ID'), $this->config->get('GLIP_CLIENT_SECRET'), $this->config->get('GLIP_SERVER'), 'Sample-Bot', '1.0.0');
         $platform = $rcsdk->platform();
 
         $cacheDir = __DIR__ . DIRECTORY_SEPARATOR . '_cache';
