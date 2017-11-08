@@ -1,0 +1,47 @@
+{
+  "name": "botman-getsatisfaction",
+  "description": "Easy way for developers to add getsatisfaction bots to Glip Groups",
+  "repository": "https://github.com/anilkumarbp/Glipped.git",
+  "keywords": [
+    "RingCentral",
+    "ringcentral",
+    "glip",
+    "heroku"
+  ],
+  "scripts": {
+    "postdeploy": "composer install"
+  },
+  "formation": [
+    {
+      "process": "web",
+      "quantity": 1
+    }
+  ],
+  "website": "https://developers.ringcentral.com",
+  "env": {
+    "GLIP_SERVER": {
+      "description": "RingCentral server",
+      "required": true
+    },
+    "GLIP_CLIENT_ID": {
+      "description": "YYour RingCentral Application Key from the Developer Portal",
+      "required": true
+    },
+    "GLIP_CLIENT_SECRET": {
+      "description": "Your RingCentral Application Secret from the Developer Portal",
+      "required": true
+    },
+    "GLIP_REDIRECT_URL": {
+      "description": "Your RingCentral redirect URL",
+      "required": true
+    },
+    "GLIP_WEBHOOK_URL": {
+      "description": "Your RingCentral Webhook URL",
+      "required": true
+    },
+    "GLIP_BOT_NAME": {
+      "description": "Your RingCentral Bot Name",
+      "required": true
+    }
+  }
+}
