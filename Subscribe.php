@@ -9,7 +9,7 @@ use RingCentral\SDK\SDK;
 try {
 
     // Create SDK instance
-    $rcsdk = new SDK(getenv('GLIP_CLIENT_ID'), getenv('GLIP_CLIENT_SECRET') , getenv('GLIP_SERVER'), 'Demo', '1.0.0');
+    $rcsdk = new SDK($_ENV['GLIP_CLIENT_ID'], $_ENV['GLIP_CLIENT_SECRET'] , $_ENV['GLIP_SERVER'], 'Demo', '1.0.0');
 
     // Create Platform instance
     $platform = $rcsdk->platform();
@@ -38,7 +38,7 @@ try {
         ),
         "deliveryMode"=>array(
             "transportType"=> "WebHook",
-            "address"=>getenv('GLIP_WEBHOOK_URL')
+            "address"=>$_ENV['GLIP_WEBHOOK_URL']
         )
     ));
 
