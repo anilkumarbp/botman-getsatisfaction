@@ -34,6 +34,23 @@ try {
     }
     file_put_contents($file, json_encode($platform->auth()->data(), JSON_PRETTY_PRINT));
     print PHP_EOL . "Wohooo, your Bot is on-boarded to Glip." . PHP_EOL;
+
+    /*
+     * Setup Webhook Subscription
+     */
+    $apiResponse = $platform->post('/subscription',array(
+        "eventFilters"=>array(
+            "/restapi/v1.0/glip/groups",
+            "/restapi/v1.0/glip/posts"
+        ),
+        "deliveryMode"=>array(
+            "transportType"=> "WebHook",
+            "address"=>getenv('GLIP_WEBHOOK_URL')
+        )
+    ));
+
+    print PHP_EOL . "Wohooo, your Bot is Registered now." . PHP_EOL;
+
     return;
 
 
