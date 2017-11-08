@@ -36,7 +36,8 @@
     "ext-mbstring": "*",
     "mashape/unirest-php": "~3.0.1",
     "apimatic/jsonmapper": "~1.0.0",
-    "davidniki02/api-ai-php": "^0.2.5"
+    "davidniki02/api-ai-php": "^0.2.5",
+    "heroku/heroku-buildpack-php" : "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7.20",
