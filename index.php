@@ -51,8 +51,6 @@ try {
 
     print PHP_EOL . "Wohooo, your Bot is Registered now." . PHP_EOL;
 
-    return;
-
 
 } catch (Exception $e) {
 

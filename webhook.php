@@ -50,7 +50,6 @@ if (!file_exists($cacheDir)) {
     // GlipWebhook verification
     if ($request->headers->has('Validation-Token'))
     {
-
         $headers = getallheaders();
         return Response::create('',200,array('Validation-Token' => $headers['Validation-Token']))->send();
     }
