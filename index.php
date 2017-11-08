@@ -6,12 +6,6 @@ require('vendor/autoload.php');
 use RingCentral\SDK\SDK;
 use Symfony\Component\HttpFoundation\Response;
 
-// Parse the .env file
-if(getenv('APPLICATION_ENV') !== 'production') { /* or staging */
-    $dotenv = new Dotenv\Dotenv(__DIR__);
-    $dotenv->load();
-}
-
 
 try {
 
@@ -20,12 +14,12 @@ try {
     }
 
     // Create SDK instance
-    $rcsdk = new SDK($_ENV['GLIP_CLIENT_ID'], $_ENV['GLIP_CLIENT_SECRET'] , $_ENV['GLIP_SERVER'], 'Demo', '1.0.0');
+    $rcsdk = new SDK(getenv('GLIP_CLIENT_ID'), getenv('GLIP_CLIENT_SECRET') , getenv('GLIP_SERVER'), 'Demo', '1.0.0');
 
     // Create Platform instance
     $platform = $rcsdk->platform();
     $qs = $platform->parseAuthRedirectUrl($_SERVER['QUERY_STRING']);
-    $qs["redirectUri"] = $_ENV['GLIP_REDIRECT_URL'];
+    $qs["redirectUri"] = getenv('GLIP_REDIRECT_URL');
     $auth = $platform->login($qs);
 
     /*

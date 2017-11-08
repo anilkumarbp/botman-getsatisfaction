@@ -11,18 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use GlipDriver\GlipBotman;
 
-// Parse the .env file
-if(getenv('APPLICATION_ENV') !== 'production') { /* or staging */
-    $dotenv = new Dotenv\Dotenv(__DIR__);
-    $dotenv->load();
-}
 
 // Load the values from .env
 $config = [
-    'GLIP_SERVER' => $_ENV['GLIP_SERVER'],
-    'GLIP_CLIENT_ID' => $_ENV['GLIP_CLIENT_ID'],
-    'GLIP_CLIENT_SECRET' => $_ENV['GLIP_CLIENT_SECRET'],
-    'GLIP_BOT_NAME' => '@'.$_ENV['GLIP_BOT_NAME']
+    'GLIP_SERVER' => getenv('GLIP_SERVER'),
+    'GLIP_CLIENT_ID' => getenv('GLIP_CLIENT_ID'),
+    'GLIP_CLIENT_SECRET' => getenv('GLIP_CLIENT_SECRET'),
+    'GLIP_BOT_NAME' => '@'. getenv('GLIP_BOT_NAME')
 ];
 
 
