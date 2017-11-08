@@ -7,9 +7,10 @@ use RingCentral\SDK\SDK;
 
 
 // Parse the .env file
-$dotenv = new Dotenv\Dotenv(getcwd());
-$dotenv->load();
-
+if(getenv('APPLICATION_ENV') !== 'production') { /* or staging */
+    $dotenv = new Dotenv\Dotenv(__DIR__);
+    $dotenv->load();
+}
 
 try {
 
