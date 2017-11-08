@@ -22,6 +22,7 @@ try {
     $cachedAuth = array();
 
     if (file_exists($file)) {
+        print 'The File Exists :'. PHP_EOL;
         $cachedAuth = json_decode(file_get_contents($file), true);
     }
 

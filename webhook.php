@@ -27,6 +27,8 @@ $config = [
 $cacheDir = __DIR__ . DIRECTORY_SEPARATOR . '_subscribe';
 if (!file_exists($cacheDir)) {
 
+    print 'The Subscribe file is created :' . PHP_EOL;
+
     mkdir($cacheDir);
     $request = Request::createFromGlobals();
     // GlipWebhook verification
