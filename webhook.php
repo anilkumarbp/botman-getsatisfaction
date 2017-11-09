@@ -14,10 +14,10 @@ use GlipDriver\GlipBotman;
 
 // Load the values from .env
 $config = [
-    'GLIP_SERVER' => $_ENV['GLIP_SERVER'],
-    'GLIP_CLIENT_ID' => $_ENV['GLIP_CLIENT_ID'],
-    'GLIP_CLIENT_SECRET' => $_ENV['GLIP_CLIENT_SECRET'],
-    'GLIP_BOT_NAME' => '@'. $_ENV['GLIP_BOT_NAME']
+    'GLIP_SERVER' => getenv('GLIP_SERVER'),
+    'GLIP_CLIENT_ID' => getenv('GLIP_CLIENT_ID'),
+    'GLIP_CLIENT_SECRET' => getenv('GLIP_CLIENT_SECRET'),
+    'GLIP_BOT_NAME' => '@'. getenv('GLIP_BOT_NAME')
 ];
 
 
