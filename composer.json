@@ -23,7 +23,7 @@
     }
   ],
   "require": {
-    "mpociot/botman": "^1.5",
+    "botman/botman": "^1.5",
     "ringcentral/ringcentral-php": "^2.0.0",
     "vlucas/phpdotenv": "^2.2",
     "ext-curl": "*",
