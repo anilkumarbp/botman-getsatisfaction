@@ -17,7 +17,12 @@ $config = [
     'GLIP_SERVER' => getenv('GLIP_SERVER'),
     'GLIP_CLIENT_ID' => getenv('GLIP_CLIENT_ID'),
     'GLIP_CLIENT_SECRET' => getenv('GLIP_CLIENT_SECRET'),
-    'GLIP_BOT_NAME' => '@'. getenv('GLIP_BOT_NAME')
+    'GLIP_BOT_NAME' => '@'. getenv('GLIP_BOT_NAME'),
+    'amazonAccessKey' => getenv('amazonAccessKey'),
+    'amazonSecretKey' => getenv('amazonSecretKey'),
+    'amazonRegion' => getenv('amazonRegion'),
+    'amazonS3Bucket' => getenv('amazonS3Bucket'),
+    'amazonBucketKeyname' => getenv('amazonBucketKeyname')
 ];
 
 

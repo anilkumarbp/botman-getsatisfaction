@@ -5,9 +5,21 @@ require('vendor/autoload.php');
 
 use RingCentral\SDK\SDK;
 use Symfony\Component\HttpFoundation\Response;
+use Aws\Common\Aws;
+use Aws\Ses\SesClient;
+use Aws\S3\S3Client;
+
 
 
 try {
+
+    // Create the S3 Client
+    $client = S3Client::factory(array(
+        'key' => getenv('amazonAccessKey'),
+        'secret' => getenv('amazonSecretKey'),
+        'region' => getenv('amazonRegion'),
+        'command.params' => ['PathStyle' => true]
+    ));
 
     if (!isset($_GET['code'])) {
         print 'Heroku App Deployed' . PHP_EOL;
@@ -24,16 +36,11 @@ try {
     $auth = $platform->login($qs);
 
     /*
-     * Using the caching mechanism
+     * Write the JSON to S3 bucket
      */
-    $cacheDir = __DIR__ . DIRECTORY_SEPARATOR . '_cache';
-    $file = $cacheDir . DIRECTORY_SEPARATOR . 'platform.json';
-    if (!file_exists($cacheDir)) {
-        print ' The cacheDir is created ' . PHP_EOL;
-        mkdir($cacheDir);
-    }
-    file_put_contents($file, json_encode($platform->auth()->data(), JSON_PRETTY_PRINT));
+    $upload = $client->upload(getenv('amazonS3Bucket'), getenv('amazonBucketKeyname'),json_encode($platform->auth()->data(), JSON_PRETTY_PRINT));
     print PHP_EOL . "Wohooo, your Bot is on-boarded to Glip." . PHP_EOL;
+
 
     /*
      * Setup Webhook Subscription

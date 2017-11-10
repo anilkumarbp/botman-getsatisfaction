@@ -16,6 +16,9 @@ use Mpociot\BotMan\Messages\Message as IncomingMessage;
 use RingCentral\SDK\SDK;
 use GetSatisfactionAPILib\GetSatisfactionAPIClient;
 use GetSatisfactionAPILib\APIHelper;
+use Aws\Common\Aws;
+use Aws\Ses\SesClient;
+use Aws\S3\S3Client;
 
 
 class GlipBotman extends Driver
@@ -170,35 +173,24 @@ class GlipBotman extends Driver
         $rcsdk = new SDK($this->config->get('GLIP_CLIENT_ID'), $this->config->get('GLIP_CLIENT_SECRET'), $this->config->get('GLIP_SERVER'), 'Sample-Bot', '1.0.0');
         $platform = $rcsdk->platform();
 
-        $cacheDir = __DIR__ . DIRECTORY_SEPARATOR . '_cache';
-        $file = $cacheDir . DIRECTORY_SEPARATOR . 'platform.json';
+        // Create the S3 Client
+        $client = S3Client::factory(array(
+            'key' => $this->config->get('amazonAccessKey'),
+            'secret' => $this->config->get('amazonSecretKey'),
+            'region' => $this->config->get('amazonRegion'),
+            'command.params' => ['PathStyle' => true]
+        ));
 
-        $cachedAuth = array();
+        $result = $client->getObject([
+            'Bucket' => $this->config->get('amazonS3Bucket'),
+            'Key' => $this->config->get('amazonBucketKeyname')
+        ]);
 
-        if (file_exists($file)) {
-            $cachedAuth = json_decode(file_get_contents($file), true);
-            $platform->auth()->setData($cachedAuth);
+        $token = json_decode($result['Body']);
 
-        }
+        $platform->auth()->setData((array)$token);
 
-        try {
-
-            if($platform->loggedIn()) {
-                return $platform;
-            }
-
-            else {
-                $refresh = $platform->login($this->config->get('GLIP_USERNAME'), $this->config->get('GLIP_EXTENSION'), $this->config->get('GLIP_PASSWORD'));
-                file_put_contents($file, json_encode($refresh->jsonArray(), JSON_PRETTY_PRINT));
-                return $platform;
-            }
-        }
-
-        catch (Exception $e) {
-            $platform->login($this->config->get('GLIP_USERNAME'), $this->config->get('GLIP_EXTENSION'), $this->config->get('GLIP_PASSWORD'));
-            file_put_contents($file, json_encode($platform->auth()->data(), JSON_PRETTY_PRINT));
-            return $platform;
-        }
+        return $platform;
     }
 
     /**
