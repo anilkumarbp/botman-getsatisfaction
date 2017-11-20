@@ -4,6 +4,9 @@
 require('vendor/autoload.php');
 
 use RingCentral\SDK\SDK;
+use Aws\Common\Aws;
+use Aws\Ses\SesClient;
+use Aws\S3\S3Client;
 
 
 try {
@@ -14,19 +17,25 @@ try {
     // Create Platform instance
     $platform = $rcsdk->platform();
     /*
-     * Using the caching mechanism
+     * Using the AmazonS3 Bucket to get the tokens
      */
-    $cacheDir = __DIR__ . DIRECTORY_SEPARATOR . '_cache';
-    $file = $cacheDir . DIRECTORY_SEPARATOR . 'platform.json';
 
-    $cachedAuth = array();
+    // Create the S3 Client
+    $client = S3Client::factory(array(
+        'key' => $this->config->get('amazonAccessKey'),
+        'secret' => $this->config->get('amazonSecretKey'),
+        'region' => $this->config->get('amazonRegion'),
+        'command.params' => ['PathStyle' => true]
+    ));
 
-    if (file_exists($file)) {
-        print 'The File Exists :'. PHP_EOL;
-        $cachedAuth = json_decode(file_get_contents($file), true);
-    }
+    $result = $client->getObject([
+        'Bucket' => $this->config->get('amazonS3Bucket'),
+        'Key' => $this->config->get('amazonBucketKeyname')
+    ]);
 
-    $platform->auth()->setData($cachedAuth);
+    $token = json_decode($result['Body']);
+    $platform->auth()->setData((array)$token);
+
 
     /*
      * Setup Webhook Subscription
