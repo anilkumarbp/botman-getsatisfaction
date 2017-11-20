@@ -22,15 +22,15 @@ try {
 
     // Create the S3 Client
     $client = S3Client::factory(array(
-        'key' => $this->config->get('amazonAccessKey'),
-        'secret' => $this->config->get('amazonSecretKey'),
-        'region' => $this->config->get('amazonRegion'),
+        'key' => getenv('amazonAccessKey'),
+        'secret' => getenv('amazonSecretKey'),
+        'region' => getenv('amazonRegion'),
         'command.params' => ['PathStyle' => true]
     ));
 
     $result = $client->getObject([
-        'Bucket' => $this->config->get('amazonS3Bucket'),
-        'Key' => $this->config->get('amazonBucketKeyname')
+        'Bucket' => getenv('amazonS3Bucket'),
+        'Key' => getenv('amazonBucketKeyname')
     ]);
 
     $token = json_decode($result['Body']);
